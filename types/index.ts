@@ -1,10 +1,3 @@
-// type User = {
-//   name: string;
-//   email: string;
-//   image?: string;
-//   accountId: string;
-// };
-
 enum Subject {
   maths = "maths",
   language = "language",
@@ -17,15 +10,21 @@ enum Subject {
   business = "business",
 }
 
-type Companion = Models.DocumentList<Models.Document> & {
-  $id: string;
+// Companion item as returned by Supabase
+type Companion = {
+  id: string;
   name: string;
   subject: Subject;
   topic: string;
   duration: number;
   bookmarked: boolean;
+  author?: string; // assuming you store user id of creator
+  voice?: string;
+  style?: string;
+  created_at?: string;
 };
 
+// Used when creating a new companion
 interface CreateCompanion {
   name: string;
   subject: string;
@@ -35,6 +34,7 @@ interface CreateCompanion {
   duration: number;
 }
 
+// Used when querying companions with filters/pagination
 interface GetAllCompanions {
   limit?: number;
   page?: number;
@@ -42,11 +42,13 @@ interface GetAllCompanions {
   topic?: string | string[];
 }
 
+// Used when creating client session
 interface BuildClient {
   key?: string;
   sessionToken?: string;
 }
 
+// User account creation
 interface CreateUser {
   email: string;
   name: string;
@@ -54,10 +56,12 @@ interface CreateUser {
   accountId: string;
 }
 
+// For extracting search params from URL
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
+// Avatar display
 interface Avatar {
   userName: string;
   width: number;
@@ -65,12 +69,13 @@ interface Avatar {
   className?: string;
 }
 
-
+// Chat message structure
 interface SavedMessage {
   role: "user" | "system" | "assistant";
   content: string;
 }
 
+// Props to render a companion card/component
 interface CompanionComponentProps {
   companionId: string;
   subject: string;
