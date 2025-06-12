@@ -1,11 +1,11 @@
 import CompanionCard from "@/components/CompanionCard";
 import CompanionsList from "@/components/CompanionsList";
 import CTA from "@/components/CTA";
-import {recentSessions} from "@/constants";
-import {getAllCompanions, getRecentSessions} from "@/lib/actions/companion.actions";
-import {getSubjectColor} from "@/lib/utils";
+import { getAllCompanions, getRecentSessions } from "@/lib/actions/companion.actions";
+import { getSubjectColor } from "@/lib/utils";
 
 const Page = async () => {
+    // Fetch companions with bookmark info
     const companions = await getAllCompanions({ limit: 3 });
     const recentSessionsCompanions = await getRecentSessions(10);
 
@@ -19,9 +19,9 @@ const Page = async () => {
                         key={companion.id}
                         {...companion}
                         color={getSubjectColor(companion.subject)}
+                        bookmarked={companion.bookmarked} // ✅ pass bookmark status
                     />
                 ))}
-
             </section>
 
             <section className="home-section">
@@ -33,7 +33,7 @@ const Page = async () => {
                 <CTA />
             </section>
         </main>
-    )
-}
+    );
+};
 
-export default Page
+export default Page;
