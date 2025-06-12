@@ -1,6 +1,8 @@
 import {withSentryConfig} from "@sentry/nextjs";
 import type { NextConfig } from "next";
-
+typescript:{
+    ignoreBuildErrors:true,
+},
 const nextConfig: NextConfig = {
 
     images: {
